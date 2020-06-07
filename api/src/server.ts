@@ -17,3 +17,4 @@ app.listen(3000);
 //npm install ts-node-dev -D
 //npx ts-node-dev ./src/server.ts
 //add script dev in package.json
+//npx create-react-app web --template=typescript
