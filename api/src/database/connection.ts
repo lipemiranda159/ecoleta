@@ -5,6 +5,7 @@ const connection = knex({
   connection: {
     filename: path.resolve(__dirname, "database.sqlite"),
   },
+  useNullAsDefault: true,
 });
 
 //__dirname: path of the directiory
