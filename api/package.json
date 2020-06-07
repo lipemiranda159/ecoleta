@@ -5,7 +5,8 @@
   "main": "app.ts",
   "scripts": {
     "dev": "ts-node-dev ./src/server.ts",
-    "knex:migration": "knex migrate:latest --knexfile knexfile.ts"
+    "knex:seed": "knex --knexfile knexfile.ts seed:run",
+    "knex:migration": "knex migrate:latest --knexfile knexfile.ts migrate:latest"
   },
   "author": "",
   "license": "ISC",
