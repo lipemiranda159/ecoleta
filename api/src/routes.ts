@@ -9,7 +9,13 @@ routes.get("/users", (req, res) => {
 
 routes.get("/items", async (req, res) => {
   const items = await knex("items").select("*");
-  return res.json(items);
+  const serializedItems = items.map((item) => {
+    return {
+      title: item.title,
+      image_url: `http://localhost:3000/uploads/${item.image}`,
+    };
+  });
+  return res.json(serializedItems);
 });
 
 export default routes;
