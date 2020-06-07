@@ -1,15 +1,10 @@
 import React from "react";
 import "./App.css";
 
-import Header from "./header";
+import Home from "./pages/home";
 
 function App() {
-  return (
-    <div>
-      <Header title="Ecoleta" />
-      <h1>Conteúdo da aplicação</h1>
-    </div>
-  );
+  return <Home />;
 }
 
 export default App;
