@@ -2,7 +2,7 @@
   "name": "ecoleta-api",
   "version": "1.0.0",
   "description": "Project ecoleta",
-  "main": "app.ts",
+  "main": "server.ts",
   "scripts": {
     "dev": "ts-node-dev ./src/server.ts",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
