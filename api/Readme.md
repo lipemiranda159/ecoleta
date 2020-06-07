@@ -36,3 +36,7 @@ return knex.schema.dropTable("points");
 
 - create knexfile
 - exec command: npx knex migrate:latest --knexfile knexfile.ts
+- add command in package.json
+- create seed folder
+- create seed.ts
+- add command in package.json: knex --knexfile knexfile.ts seed:run
