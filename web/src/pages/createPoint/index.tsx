@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import { Map, TileLayer, Marker } from "react-leaflet";
+import apiService from "../../services/apiService";
+import { getStates, getCities } from "../../services/ibgeService";
+import Item from "../../models/Item";
+import State from "../../models/State";
 import { FiArrowLeft } from "react-icons/fi";
 import logo from "../../assets/logo.svg";
 import "./styles.css";
 
+//estado para array ou objeto: informar o tipo da variável
+
 const CreatePoint = () => {
+  const [items, setItems] = useState<Item[]>([]);
+  const [states, setStates] = useState<State[]>([]);
+  const [selectedUf, setSelectedUf] = useState<string>("0");
+
+  useEffect(() => {
+    apiService.get("items").then((response) => {
+      setItems(response.data);
+      console.log(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const stateDatas = getStates();
+    console.log(stateDatas);
+    setStates(stateDatas);
+  }, []);
+
+  useEffect(() => {}, []);
+
+  function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
+    setSelectedUf(event.target.value);
+  }
+
   return (
     <div id="page-create-point">
       <header>
@@ -54,8 +83,20 @@ const CreatePoint = () => {
           <div className="field-group">
             <div className="field">
               <label htmlFor="uf">Estado (UF)</label>
-              <select name="uf" id="uf">
+              <select
+                name="uf"
+                id="uf"
+                value={selectedUf}
+                onChange={handleSelectUf}
+              >
                 <option value="0">Selecione uma UF</option>
+                {states.map((state) => {
+                  return (
+                    <option key={state.id} value={state.abbreviation}>
+                      {state.name}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="field">
@@ -73,24 +114,14 @@ const CreatePoint = () => {
           </legend>
 
           <ul className="items-grid">
-            <li>
-              <img src="http://localhost:3001/uploads/oleo.svg"></img>
-            </li>
-            <li>
-              <img src="http://localhost:3001/uploads/oleo.svg"></img>
-            </li>
-            <li>
-              <img src="http://localhost:3001/uploads/oleo.svg"></img>
-            </li>
-            <li>
-              <img src="http://localhost:3001/uploads/oleo.svg"></img>
-            </li>
-            <li>
-              <img src="http://localhost:3001/uploads/oleo.svg"></img>
-            </li>
-            <li>
-              <img src="http://localhost:3001/uploads/oleo.svg"></img>
-            </li>
+            {items.map((item) => {
+              return (
+                <li key={item.id}>
+                  <img src={item.image_url} alt={item.title} />
+                  <span>{item.title}</span>
+                </li>
+              );
+            })}
           </ul>
         </fieldset>
         <button type="submit">Cadastrar</button>
